@@ -7,11 +7,14 @@ namespace Mp3MusicZone.Web.Infrastructure.Extensions
 
 	public static class EmailSenderExtensions
     {
-        public static Task SendEmailConfirmationAsync(this IEmailSender emailSender, string email, string link)
+        public static Task SendEmailConfirmationAsync(this IEmailSenderService emailSender, string email, string link)
         {
-            return emailSender.SendEmailAsync(email, "Your registration is almost complete!",
+            return emailSender
+				.SendEmailAsync(
+				email,
+				"Your registration is almost complete!",
                 "<h2>Thanks for signing up for Mp3MusicZone!</h2>" +
-				$"Please verify your account by clicking the link below: <a href='{HtmlEncoder.Default.Encode(link)}'>{HtmlEncoder.Default.Encode(link)}</a>");
+				$"<h4>Please verify your account by clicking the link below: <a href='{HtmlEncoder.Default.Encode(link)}'>{HtmlEncoder.Default.Encode(link)}</a></h4>");
         }
     }
 }

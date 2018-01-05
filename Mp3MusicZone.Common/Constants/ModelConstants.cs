@@ -18,5 +18,7 @@
 
 		public const string MaxLengthErrorMessage =
 			"The {0} must be at max {1} characters long.";
+
+		public const string MinAgeErrorMessage = "Your age does not meet the requirements to create an account.";
 	}
 }

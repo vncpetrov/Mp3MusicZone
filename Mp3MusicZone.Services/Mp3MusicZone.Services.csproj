@@ -5,9 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Microsoft.Extensions.Options">
-      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.options\2.0.0\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Mp3MusicZone.Data\Mp3MusicZone.Data.csproj" />
   </ItemGroup>
 
 </Project>

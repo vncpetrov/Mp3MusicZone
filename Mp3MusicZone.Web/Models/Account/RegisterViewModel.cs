@@ -1,5 +1,6 @@
 ﻿namespace Mp3MusicZone.Web.Models.Account
 {
+	using Common.Attributes.Validation;
 	using Data.Models.Enums;
 	using System;
 	using System.ComponentModel.DataAnnotations;
@@ -35,21 +36,24 @@
 		public string Email { get; set; }
 
 		[Required]
-		[MinLength(NameMinLength,
-			ErrorMessage = MinLengthErrorMessage)]
-		[MaxLength(NameMaxLength,
-			ErrorMessage = MaxLengthErrorMessage)]
+		[NumberRange(
+			NameMinLength,
+			NameMaxLength,
+			MinLengthErrorMessage = MinLengthErrorMessage,
+			MaxLengthErrorMessage = MaxLengthErrorMessage)]
 		public string FirstName { get; set; }
 
 		[Required]
-		[MinLength(NameMinLength, 
-			ErrorMessage = MinLengthErrorMessage)]
-		[MaxLength(NameMaxLength,
-			ErrorMessage = MaxLengthErrorMessage)]
+		[NumberRange(
+			NameMinLength,
+			NameMaxLength,
+			MinLengthErrorMessage = MinLengthErrorMessage,
+			MaxLengthErrorMessage = MaxLengthErrorMessage)]
 		public string LastName { get; set; }
 
-		[Required]
 		[DataType(DataType.Date)]
+		[Required] 
+		[MinAge(16, ErrorMessage = MinAgeErrorMessage)]
 		public DateTime Birthdate { get; set; }
 
 		[Required]

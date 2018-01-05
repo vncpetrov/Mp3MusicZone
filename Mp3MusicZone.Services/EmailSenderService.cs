@@ -8,11 +8,11 @@
 	using System.Net.Mail;
 	using System.Threading.Tasks;
 
-	public class EmailSender : IEmailSender
+	public class EmailSenderService : IEmailSenderService
 	{
 		private readonly EmailSettings emailSettings;
 
-		public EmailSender(IOptions<EmailSettings> emailSettings)
+		public EmailSenderService(IOptions<EmailSettings> emailSettings)
 		{
 			this.emailSettings = emailSettings.Value;
 		}

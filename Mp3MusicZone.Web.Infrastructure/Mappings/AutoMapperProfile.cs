@@ -32,15 +32,16 @@
 
 		private void RegisterStandartMappings(IEnumerable<Type> types, AutoMapperProfile profile)
 		{
-			var standartMappings = types.Select(t => new
-			{
-				Destination = t,
-				Source = t.GetInterfaces()
-					.First(i => i.GetGenericTypeDefinition() == typeof(IMapFrom<>)
-					.GetGenericArguments()
-					.First())
-			})
-			.ToList();
+			var standartMappings = types
+				.Select(t => new
+				{
+					Destination = t,
+					Source = t.GetInterfaces()
+						.First(i => i.GetGenericTypeDefinition() == typeof(IMapFrom<>))
+						.GetGenericArguments()
+						.First()
+				})
+				.ToList();
 
 			foreach (var mapping in standartMappings)
 			{

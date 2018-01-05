@@ -17,20 +17,20 @@
 	using Mp3MusicZone.Services.Models;
 
 	public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+	{
+		public Startup(IConfiguration configuration)
+		{
+			Configuration = configuration;
+		}
 
-        public IConfiguration Configuration { get; }
-		
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddDbContext<Mp3MusicZoneDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+		public IConfiguration Configuration { get; }
 
-            services.AddIdentity<User, IdentityRole>(options =>
+		public void ConfigureServices(IServiceCollection services)
+		{
+			services.AddDbContext<Mp3MusicZoneDbContext>(options =>
+				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddIdentity<User, IdentityRole>(options =>
 			{
 				options.Password.RequireDigit = false;
 				options.Password.RequireLowercase = false;
@@ -39,45 +39,49 @@
 
 				options.SignIn.RequireConfirmedEmail = true;
 			})
-                .AddEntityFrameworkStores<Mp3MusicZoneDbContext>()
-                .AddDefaultTokenProviders();
+				.AddEntityFrameworkStores<Mp3MusicZoneDbContext>()
+				.AddDefaultTokenProviders();
 
 			services.AddServices();
 			services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
 			services.AddAutoMapper();
 
-            services.AddMvc(options =>
+			services.AddMvc(options =>
 			{
 				options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 			});
-        }
-		
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
+		}
+
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
 			app.UseDatabaseMigration();
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
-                app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+				app.UseBrowserLink();
+				app.UseDatabaseErrorPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+			}
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
-            app.UseAuthentication();
+			app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-        }
-    }
+			app.UseMvc(routes =>
+			{
+				routes.MapRoute(
+					name: "areas",
+					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+				routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+			});
+		}
+	}
 }

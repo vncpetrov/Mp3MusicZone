@@ -21,7 +21,7 @@
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
-        private readonly IEmailSender emailSender;
+        private readonly IEmailSenderService emailSender;
         private readonly ILogger logger;
         private readonly UrlEncoder urlEncoder;
 
@@ -30,7 +30,7 @@
         public ManageController(
           UserManager<User> userManager,
           SignInManager<User> signInManager,
-          IEmailSender emailSender,
+          IEmailSenderService emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
