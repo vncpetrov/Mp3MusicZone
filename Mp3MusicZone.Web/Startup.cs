@@ -47,6 +47,8 @@
 
 			services.AddAutoMapper();
 
+			services.AddRouting(options => options.LowercaseUrls = true);
+
 			services.AddMvc(options =>
 			{
 				options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());

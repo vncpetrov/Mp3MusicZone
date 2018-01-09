@@ -12,4 +12,8 @@
     <ProjectReference Include="..\Mp3MusicZone.Data\Mp3MusicZone.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Uploader\Models\" />
+  </ItemGroup>
+
 </Project>

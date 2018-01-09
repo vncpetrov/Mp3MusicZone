@@ -36,19 +36,17 @@
 		public string Email { get; set; }
 
 		[Required]
-		[NumberRange(
-			NameMinLength,
-			NameMaxLength,
-			MinLengthErrorMessage = MinLengthErrorMessage,
-			MaxLengthErrorMessage = MaxLengthErrorMessage)]
+		[MinLength(NameMinLength,
+			ErrorMessage = MinLengthErrorMessage)]
+		[MaxLength(NameMaxLength,
+			ErrorMessage = MaxLengthErrorMessage)]
 		public string FirstName { get; set; }
 
 		[Required]
-		[NumberRange(
-			NameMinLength,
-			NameMaxLength,
-			MinLengthErrorMessage = MinLengthErrorMessage,
-			MaxLengthErrorMessage = MaxLengthErrorMessage)]
+		[MinLength(NameMinLength,
+			ErrorMessage = MinLengthErrorMessage)]
+		[MaxLength(NameMaxLength,
+			ErrorMessage = MaxLengthErrorMessage)]
 		public string LastName { get; set; }
 
 		[DataType(DataType.Date)]

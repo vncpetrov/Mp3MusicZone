@@ -11,5 +11,7 @@
 		public const string TempDataErrorMessageKey = "ErrorMessage";
 
 		public const int DefaultPageSize = 2;
+
+		public const int SongFileMaxLength = 10 * 1024 * 1000;
     }
 }

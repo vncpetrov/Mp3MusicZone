@@ -42,7 +42,7 @@
 				page = 1;
 			}
 
-			if (page > totalPages)
+			if (totalPages > 0 && page > totalPages)
 			{
 				page = totalPages;
 			}
@@ -65,7 +65,8 @@
 
 		[HttpPost]
 		[ValidateModelState]
-		public async Task<IActionResult> AddToRole(UserRoleFormModel model)
+		public async Task<IActionResult> AddToRole(UserRoleFormModel model,
+			int page, string searchTerm)
 		{
 			bool result = await this.userService.AddToRoleAsync(model.UserId, model.Role);
 
@@ -78,12 +79,18 @@
 				TempData.AddSuccessMessage($"User successfully added to {model.Role} role.");
 			}
 
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index),
+				new
+				{
+					page = page,
+					searchTerm = searchTerm
+				});
 		}
 
 		[HttpPost]
 		[ValidateModelState]
-		public async Task<IActionResult> RemoveFromRole(UserRoleFormModel model)
+		public async Task<IActionResult> RemoveFromRole(UserRoleFormModel model,
+			int page, string searchTerm)
 		{
 			bool result = await this.userService.RemoveFromRoleAsync(model.UserId, model.Role);
 
@@ -96,7 +103,12 @@
 				TempData.AddSuccessMessage($"User successfully removed from the {model.Role} role.");
 			}
 
-			return RedirectToAction(nameof(Index));
+			return RedirectToAction(nameof(Index),
+				new
+				{
+					page = page,
+					searchTerm = searchTerm
+				});
 		}
 	}
 }

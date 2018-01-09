@@ -31,8 +31,13 @@
 		}
 
 		public async Task<IEnumerable<AdminUserListingServiceModel>> GetAllAsync(
-			int currentPage = 1, string searchTerm = null)
+			int page = 1, string searchTerm = null)
 		{
+			if (searchTerm is null)
+			{
+				searchTerm = string.Empty;
+			}
+
 			//IEnumerable<User> users = await this.context.Users
 			//	.OrderBy(u => u.UserName)
 			//	.Skip((currentPage - 1) * DefaultPageSize)
@@ -50,7 +55,7 @@
 			}
 
 			IEnumerable<User> users = await usersAsQueryable
-					.Skip((currentPage - 1) * DefaultPageSize)
+					.Skip((page - 1) * DefaultPageSize)
 					.Take(DefaultPageSize)
 					.ToListAsync();
 

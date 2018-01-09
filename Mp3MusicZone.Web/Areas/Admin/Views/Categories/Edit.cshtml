@@ -1,0 +1,15 @@
+﻿@model CategoryFormModel
+
+@{
+	ViewData["Title"] = "Edit Category";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+<div class="row">
+	<div class="col-md-4">
+		@Html.Partial("_CategoryForm", Model, new ViewDataDictionary(ViewData) { { "Action", "Edit" } })
+	</div>
+</div>
+

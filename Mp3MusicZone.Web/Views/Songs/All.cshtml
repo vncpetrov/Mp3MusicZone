@@ -1,0 +1,30 @@
+﻿@model PaginatedViewModel<SongListingServiceModel>
+
+@{
+	ViewData["Title"] = "All Songs";
+}
+
+<h2>@ViewData["Title"]</h2>
+<hr />
+
+@Html.Partial("_Pagination", Model)
+
+<div class="row center-block">
+	<div class="col-md-6">
+		<ul class="list-group">
+			@foreach (var song in Model.Items)
+			{
+				<li class="list-group-item">
+					<audio controls="controls" preload="none" >
+						<source src="/Songs/Play?fileName=@song.Name" type="audio/mp3">
+						Your br type="audio/mpeg">
+						Your browser does not support the audio element.
+					</audio>
+					<h3>@song.Singer  - @song.Name</h3>
+				</li>
+			}
+		</ul>
+	</div>
+</div>
+
+

@@ -129,6 +129,46 @@ namespace Mp3MusicZone.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Mp3MusicZone.Data.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("Mp3MusicZone.Data.Models.Song", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoryId");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Singer")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
+                    b.Property<string>("UploaderId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("UploaderId");
+
+                    b.ToTable("Songs");
+                });
+
             modelBuilder.Entity("Mp3MusicZone.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -235,6 +275,18 @@ namespace Mp3MusicZone.Data.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Mp3MusicZone.Data.Models.Song", b =>
+                {
+                    b.HasOne("Mp3MusicZone.Data.Models.Category", "Category")
+                        .WithMany("Songs")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Mp3MusicZone.Data.Models.User", "Uploader")
+                        .WithMany("Songs")
+                        .HasForeignKey("UploaderId");
                 });
 #pragma warning restore 612, 618
         }

@@ -5,64 +5,14 @@
 }
 
 <h2>@ViewData["Title"]</h2>
+<hr />
 
-@{
-	string previous = Model.Page.Current == 1 ? "disabled" : string.Empty;
-	string next = Model.Page.Current == Model.Page.TotalPages ? "disabled" : string.Empty;
-
-}
-
-<nav aria-label="Page navigation">
-	<ul class="pagination">
-		<li class="page-item @previous">
-			<a class="page-link" asp-action="Index" asp-route-searchTerm="@Model.SearchTerm" asp-route-page="@Model.Page.Previous" aria-label="Previous">
-				<span aria-hidden="true">&laquo;</span>
-				<span class="sr-only">Previous</span>
-			</a>
-		</li>
-
-		@{
-			int startPage = Model.Page.Current - 1 <= 0
-				? 1
-				: Model.Page.Current - 1;
-
-			int endPage = Model.Page.Current + 1 >= Model.Page.TotalPages
-				? Model.Page.TotalPages
-				: Model.Page.Current + 1;
-
-			if (startPage == 1)
-			{
-				endPage = Model.Page.TotalPages >= 3 ? 3 : Model.Page.TotalPages;
-			}
-
-			if (endPage == Model.Page.TotalPages && Model.Page.Current == endPage)
-			{
-				startPage = startPage == 1 ? 1 : startPage--;
-			}
-		}
-
-		@for (int i = startPage; i <= endPage; i++)
-		{
-			string active = i == Model.Page.Current ? "active" : string.Empty;
-
-			<li class="page-item class @active">
-				<a class="page-link" asp-action="Index" asp-route-searchTerm="@Model.SearchTerm" asp-route-page="@i">@i</a>
-			</li>
-		}
-
-		<li class="page-item  @next">
-			<a class="page-link" asp-action="Index" asp-route-searchTerm="@Model.SearchTerm" asp-route-page="@Model.Page.Next" aria-label="Next">
-				<span aria-hidden="true">&raquo;</span>
-				<span class="sr-only">Next</span>
-			</a>
-		</li>
-	</ul>
-</nav>
+@Html.Partial("_Pagination", Model.Page, new ViewDataDictionary(ViewData) { { "searchTerm", Model.SearchTerm } })
 
 <div class="row">
 	<form asp-action="Index">
 		<div class="col-md-7">
-			<input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Search users" />
+			<input asp-for="SearchTerm" type="text" value="@Model.SearchTerm" class="form-control" placeholder="Search users" />
 		</div>
 
 		<div class="col-md-1">
@@ -98,6 +48,8 @@
 						{
 							<button type="submit"
 									asp-action="RemoveFromRole"
+									asp-route-page="@Model.Page.Current"
+									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-primary">
 								Yes
 							</button>
@@ -108,6 +60,8 @@
 						{
 							<button type="submit"
 									asp-action="AddToRole"
+									asp-route-page="@Model.Page.Current"
+									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-warning">
 								No
 							</button>
@@ -127,6 +81,8 @@
 						{
 							<button type="submit"
 									asp-action="RemoveFromRole"
+									asp-route-page="@Model.Page.Current"
+									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-primary">
 								Yes
 							</button>
@@ -137,6 +93,8 @@
 						{
 							<button type="submit"
 									asp-action="AddToRole"
+									asp-route-page="@Model.Page.Current"
+									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-warning">
 								No
 							</button>
