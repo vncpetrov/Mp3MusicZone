@@ -11,5 +11,7 @@
 
 		Task<int> TotalAsync();
 
+		Task IncrementListeningsAsync(string songName);
+
 	}
 }

@@ -12,9 +12,10 @@ using System;
 namespace Mp3MusicZone.Data.Migrations
 {
     [DbContext(typeof(Mp3MusicZoneDbContext))]
-    partial class Mp3MusicZoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180116010120_AddedSongsDownloadCount")]
+    partial class AddedSongsDownloadCount
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +151,7 @@ namespace Mp3MusicZone.Data.Migrations
 
                     b.Property<int>("CategoryId");
 
-                    b.Property<int>("Listenings");
+                    b.Property<int>("Downloads");
 
                     b.Property<string>("Name")
                         .IsRequired()

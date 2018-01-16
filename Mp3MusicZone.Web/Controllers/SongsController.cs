@@ -51,15 +51,19 @@
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> Play(string fileName)
+		public async Task<IActionResult> Play(string songName)
 		{
-			string fileWithExtension = $"{fileName}.{SongExtension}";
+			string fileWithExtension = $"{songName}.{SongExtension}";
 			string filePath = $"{DirectoryPath}/{fileWithExtension}";
 
 			using (MemoryStream memoryStream = new MemoryStream())
 			using (FileStream fileStream = new FileStream(filePath, FileMode.Open))
 			{
 				await fileStream.CopyToAsync(memoryStream);
+
+				await this.songService.IncrementListeningsAsync(songName);
+
+				this.HttpContext.Response.Headers.Add("Accept-Ranges", "bytes");
 
 				return File(memoryStream.ToArray(), "audio/mp3", fileWithExtension);
 			}

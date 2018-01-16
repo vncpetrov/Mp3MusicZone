@@ -23,5 +23,7 @@
 
 		public string UploaderId { get; set; }
 		public User Uploader { get; set; }
+
+		public int Listenings { get; set; }
 	}
 }

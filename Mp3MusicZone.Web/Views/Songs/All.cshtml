@@ -10,17 +10,28 @@
 @Html.Partial("_Pagination", Model)
 
 <div class="row center-block">
-	<div class="col-md-6">
+	<div class="col-md-8">
 		<ul class="list-group">
 			@foreach (var song in Model.Items)
 			{
+				string urlPath = $"/Songs/Play?songName={@song.Name}";
+
 				<li class="list-group-item">
-					<audio controls="controls" preload="none" >
-						<source src="/Songs/Play?fileName=@song.Name" type="audio/mp3">
+					<audio controls preload="metadata">
+						<source src="@urlPath" type="audio/mp3">
 						Your br type="audio/mpeg">
 						Your browser does not support the audio element.
 					</audio>
-					<h3>@song.Singer  - @song.Name</h3>
+
+					<a href="@urlPath" class="song">@song.Singer  - @song.Name</a>
+
+					<small>@song.UploaderUsername &vert; @song.Listenings listenings</small>
+					@*<button type="button"
+								class="btn btn-default"
+								onclick="document.getElementsByTagName('audio')[0].play()">
+							Choose your file!
+						</button>*@
+
 				</li>
 			}
 		</ul>

@@ -12,9 +12,10 @@ using System;
 namespace Mp3MusicZone.Data.Migrations
 {
     [DbContext(typeof(Mp3MusicZoneDbContext))]
-    partial class Mp3MusicZoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180116012835_ChangedSongsDownloadsToListenings")]
+    partial class ChangedSongsDownloadsToListenings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

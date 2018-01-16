@@ -3,6 +3,7 @@
 	using AutoMapper.QueryableExtensions;
 	using Contracts;
 	using Data;
+	using Data.Models;
 	using Microsoft.EntityFrameworkCore;
 	using Models;
 	using System;
@@ -20,7 +21,7 @@
 		{
 			this.context = context;
 		}
-		
+
 		public async Task<IEnumerable<SongListingServiceModel>> GetAllAsync(int page = 1)
 		{
 			return await this.context.Songs
@@ -31,9 +32,22 @@
 				.ToListAsync();
 		}
 
-		public async Task<int> TotalAsync()
+		public async Task IncrementListeningsAsync(string songName)
 		{
-			return await this.context.Songs.CountAsync();
+			Song song = await this.context.Songs
+				.FirstOrDefaultAsync(s => s.Name == songName);
+
+			if (song is null)
+			{
+				return;
+			}
+
+			song.Listenings++;
+			await this.context.SaveChangesAsync();
 		}
+
+		public async Task<int> TotalAsync()
+			=> await this.context.Songs.CountAsync();
+
 	}
 }
