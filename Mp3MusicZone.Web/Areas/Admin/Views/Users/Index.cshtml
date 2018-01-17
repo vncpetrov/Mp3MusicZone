@@ -7,7 +7,8 @@
 <h2>@ViewData["Title"]</h2>
 <hr />
 
-@Html.Partial("_Pagination", Model.Page, new ViewDataDictionary(ViewData) { { "searchTerm", Model.SearchTerm } })
+@(await Component.InvokeAsync<PaginationComponent>(
+	new { pageInfo = Model.Page, searchTerm = Model.SearchTerm }))
 
 <div class="row">
 	<form asp-action="Index">
@@ -104,7 +105,7 @@
 					</form>
 				</td>
 			</tr>
-			}
+		}
 	</tbody>
 </table>
 

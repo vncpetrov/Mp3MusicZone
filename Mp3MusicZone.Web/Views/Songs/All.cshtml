@@ -7,7 +7,7 @@
 <h2>@ViewData["Title"]</h2>
 <hr />
 
-@Html.Partial("_Pagination", Model)
+@(await Component.InvokeAsync<PaginationComponent>(new { pageInfo = Model }))
 
 <div class="row center-block">
 	<div class="col-md-8">
@@ -26,12 +26,6 @@
 					<a href="@urlPath" class="song">@song.Singer  - @song.Name</a>
 
 					<small>@song.UploaderUsername &vert; @song.Listenings listenings</small>
-					@*<button type="button"
-								class="btn btn-default"
-								onclick="document.getElementsByTagName('audio')[0].play()">
-							Choose your file!
-						</button>*@
-
 				</li>
 			}
 		</ul>
