@@ -6,12 +6,11 @@
 	using System.Threading.Tasks;
 
 	public interface ISongService
-    {
-		Task<IEnumerable<SongListingServiceModel>> GetAllAsync(int page = 1);
-
-		Task<int> TotalAsync();
-
+	{
+		Task<IEnumerable<SongListingServiceModel>> GetAllAsync(int page, string searchTerm);
+		
 		Task IncrementListeningsAsync(string songName);
 
+		Task<int> TotalAsync(string searchTerm);
 	}
 }

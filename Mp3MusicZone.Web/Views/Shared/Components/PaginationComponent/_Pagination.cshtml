@@ -13,26 +13,6 @@
 			</a>
 		</li>
 
-		@*@{
-			int startPage = Model.Current - 1 <= 0
-				? 1
-				: Model.Current - 1;
-
-			int endPage = Model.Current + 1 >= Model.TotalPages
-				? Model.TotalPages
-				: Model.Current + 1;
-
-			if (startPage == 1)
-			{
-				endPage = Model.TotalPages >= 3 ? 3 : Model.TotalPages;
-			}
-
-			if (endPage == Model.TotalPages && Model.Current == endPage)
-			{
-				startPage = startPage == 1 ? 1 : startPage - 1;
-			}
-		}*@
-
 		@for (int i = Model.StartPage; i <= Model.EndPage; i++)
 		{
 			string active = i == Model.Current ? "active" : string.Empty;

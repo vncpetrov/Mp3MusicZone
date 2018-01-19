@@ -12,7 +12,6 @@
 	using static Common.Constants.ServiceConstants;
 	using static Common.Constants.WebConstants;
 
-
 	public class SongsController : Controller
 	{
 		private readonly ISongService songService;
@@ -22,9 +21,9 @@
 			this.songService = songService;
 		}
 
-		public async Task<IActionResult> All(int page = 1)
+		public async Task<IActionResult> All(string searchTerm = null, int page = 1)
 		{
-			int totalSongs = await this.songService.TotalAsync();
+			int totalSongs = await this.songService.TotalAsync(searchTerm);
 			int pageSize = DefaultPageSize;
 			int totalPages = (int)Math.Ceiling((double)totalSongs / pageSize);
 
@@ -39,14 +38,18 @@
 			}
 
 			IEnumerable<SongListingServiceModel> songs =
-				await this.songService.GetAllAsync(page);
+				await this.songService.GetAllAsync(page, searchTerm);
 
-			return View(new PaginatedViewModel<SongListingServiceModel>()
+			return View(new PaginatedSearchViewModel<SongListingServiceModel>()
 			{
-				Current = page,
-				PageSize = pageSize,
-				TotalPages = totalPages,
-				Items = songs
+				SearchTerm = searchTerm,
+				PageInfo = new PaginatedViewModel<SongListingServiceModel>()
+				{
+					Current = page,
+					PageSize = pageSize,
+					TotalPages = totalPages,
+					Items = songs
+				}
 			});
 		}
 

@@ -7,6 +7,6 @@
     {
 		public string SearchTerm { get; set; }
 
-		public PaginatedViewModel<TModel> Page { get; set; }
+		public PaginatedViewModel<TModel> PageInfo { get; set; }
 	}
 }

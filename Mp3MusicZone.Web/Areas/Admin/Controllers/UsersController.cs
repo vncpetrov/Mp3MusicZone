@@ -53,7 +53,7 @@
 			return View(new PaginatedSearchViewModel<AdminUserListingServiceModel>()
 			{
 				SearchTerm = searchTerm,
-				Page = new PaginatedViewModel<AdminUserListingServiceModel>
+				PageInfo = new PaginatedViewModel<AdminUserListingServiceModel>
 				{
 					Items = users,
 					Current = page,

@@ -1,7 +1,21 @@
-﻿
-@{
-    ViewData["Title"] = "_SongListing";
-}
+﻿@model IEnumerable<SongListingServiceModel>
 
-<h2>_SongListing</h2>
+<ul class="list-group">
+	@foreach (var song in Model)
+	{
+		string urlPath = $"/Songs/Play?songName={@song.Name}";
+
+		<li class="list-group-item">
+			<audio controls preload="metadata">
+				<source src="@urlPath" type="audio/mp3">
+				Your br type="audio/mpeg">
+				Your browser does not support the audio element.
+			</audio>
+
+			<a href="@urlPath" class="song">@song.Singer  - @song.Name</a>
+
+			<small>@song.UploaderUsername &vert; @song.Listenings listenings</small>
+		</li>
+	}
+</ul>
 

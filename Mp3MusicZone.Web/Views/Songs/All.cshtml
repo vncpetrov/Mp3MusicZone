@@ -1,35 +1,22 @@
-﻿@model PaginatedViewModel<SongListingServiceModel>
+﻿@model PaginatedSearchViewModel<SongListingServiceModel>
 
 @{
-	ViewData["Title"] = "All Songs";
+	ViewData["Title"] = "Songs";
 }
 
 <h2>@ViewData["Title"]</h2>
 <hr />
 
-@(await Component.InvokeAsync<PaginationComponent>(new { pageInfo = Model }))
-
 <div class="row center-block">
 	<div class="col-md-8">
-		<ul class="list-group">
-			@foreach (var song in Model.Items)
-			{
-				string urlPath = $"/Songs/Play?songName={@song.Name}";
-
-				<li class="list-group-item">
-					<audio controls preload="metadata">
-						<source src="@urlPath" type="audio/mp3">
-						Your br type="audio/mpeg">
-						Your browser does not support the audio element.
-					</audio>
-
-					<a href="@urlPath" class="song">@song.Singer  - @song.Name</a>
-
-					<small>@song.UploaderUsername &vert; @song.Listenings listenings</small>
-				</li>
-			}
-		</ul>
+		@Html.Partial("_Search", Model.SearchTerm)
 	</div>
 </div>
 
+<div class="row center-block">
+	<div class="col-md-8">
+		@Html.Partial("_SongListing", Model.PageInfo.Items)
+	</div>
+</div>
 
+@(await Component.InvokeAsync<PaginationComponent>(new { pageInfo = Model.PageInfo }))

@@ -1,0 +1,22 @@
+﻿@model string
+
+@{
+	string controller = ViewContext.RouteData.Values["Controller"].ToString();
+	string action = ViewContext.RouteData.Values["Action"].ToString();
+
+	if (controller == "Home")
+	{
+		controller = string.Empty;
+	}
+}
+<div class="row">
+	<form>
+		<div class="col-md-5">
+			<input name="searchTerm" type="text" value="@Model" class="form-control" placeholder="Search @controller" />
+		</div>
+
+		<div class="col-md-1">
+			<input type="submit" class="btn btn-success pull-right" value="Search" />
+		</div>
+	</form>
+</div>

@@ -28,10 +28,10 @@
 			}
 
 			string previousDisabled =
-				pageInfo.Current == 1 ? "disabled" : string.Empty;
+				pageInfo.Current <= 1 ? "disabled" : string.Empty;
 			string nextDisabled =
-				pageInfo.Current == pageInfo.TotalPages ? "disabled" : string.Empty;
-			
+				pageInfo.Current >= pageInfo.TotalPages ? "disabled" : string.Empty;
+
 			PaginationComponentViewModel model = new PaginationComponentViewModel()
 			{
 				SearchTerm = searchTerm,

@@ -22,14 +22,28 @@
 			this.context = context;
 		}
 
-		public async Task<IEnumerable<SongListingServiceModel>> GetAllAsync(int page = 1)
+		public async Task<IEnumerable<SongListingServiceModel>> GetAllAsync(
+			int page = 1,
+			string searchTerm = null)
 		{
-			return await this.context.Songs
+			IQueryable<Song> songsAsQueryable = this.context.Songs
 				.OrderBy(s => s.Id)
+				.AsQueryable();
+
+			if (searchTerm != null)
+			{
+				songsAsQueryable = songsAsQueryable
+					.Where(s => s.Name.ToLower().Contains(searchTerm.ToLower()));
+			}
+
+			IEnumerable<SongListingServiceModel> songs =
+				await songsAsQueryable
 				.Skip((page - 1) * DefaultPageSize)
 				.Take(DefaultPageSize)
 				.ProjectTo<SongListingServiceModel>()
 				.ToListAsync();
+
+			return songs;
 		}
 
 		public async Task IncrementListeningsAsync(string songName)
@@ -46,8 +60,14 @@
 			await this.context.SaveChangesAsync();
 		}
 
-		public async Task<int> TotalAsync()
-			=> await this.context.Songs.CountAsync();
+		public async Task<int> TotalAsync(string searchTerm = null)
+		{
+			searchTerm = searchTerm ?? string.Empty;
+
+			return await this.context.Songs
+				.Where(s => s.Name.ToLower().Contains(searchTerm.ToLower()))
+				.CountAsync();
+		}
 
 	}
 }

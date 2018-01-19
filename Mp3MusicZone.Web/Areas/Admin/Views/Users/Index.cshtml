@@ -7,20 +7,7 @@
 <h2>@ViewData["Title"]</h2>
 <hr />
 
-@(await Component.InvokeAsync<PaginationComponent>(
-	new { pageInfo = Model.Page, searchTerm = Model.SearchTerm }))
-
-<div class="row">
-	<form asp-action="Index">
-		<div class="col-md-7">
-			<input asp-for="SearchTerm" type="text" value="@Model.SearchTerm" class="form-control" placeholder="Search users" />
-		</div>
-
-		<div class="col-md-1">
-			<input type="submit" class="btn btn-success pull-right" value="Search" />
-		</div>
-	</form>
-</div>
+@Html.Partial("_Search", Model.SearchTerm)
 
 <table class="table table-striped table-responsive table-hover">
 	<thead>
@@ -32,7 +19,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var user in Model.Page.Items)
+		@foreach (var user in Model.PageInfo.Items)
 		{
 			<tr>
 				<td>@user.Username</td>
@@ -49,7 +36,7 @@
 						{
 							<button type="submit"
 									asp-action="RemoveFromRole"
-									asp-route-page="@Model.Page.Current"
+									asp-route-page="@Model.PageInfo.Current"
 									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-primary">
 								Yes
@@ -61,7 +48,7 @@
 						{
 							<button type="submit"
 									asp-action="AddToRole"
-									asp-route-page="@Model.Page.Current"
+									asp-route-page="@Model.PageInfo.Current"
 									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-warning">
 								No
@@ -82,7 +69,7 @@
 						{
 							<button type="submit"
 									asp-action="RemoveFromRole"
-									asp-route-page="@Model.Page.Current"
+									asp-route-page="@Model.PageInfo.Current"
 									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-primary">
 								Yes
@@ -94,7 +81,7 @@
 						{
 							<button type="submit"
 									asp-action="AddToRole"
-									asp-route-page="@Model.Page.Current"
+									asp-route-page="@Model.PageInfo.Current"
 									asp-route-searchTerm="@Model.SearchTerm"
 									class="btn btn-warning">
 								No
@@ -108,4 +95,7 @@
 		}
 	</tbody>
 </table>
+
+@(await Component.InvokeAsync<PaginationComponent>(
+			new { pageInfo = Model.PageInfo, searchTerm = Model.SearchTerm }))
 
