@@ -8,10 +8,6 @@
 
 		int PageSize { get; set; }
 
-		int TotalPages { get; set; }
-
-		int Previous { get; }
-
-		int Next { get; }
+		int TotalItems { get; set; }
 	}
 }

@@ -24,18 +24,18 @@
 		public async Task<IActionResult> Index(int page = 1, string searchTerm = null)
 		{
 			int totalSongs = await this.songService.TotalAsync(searchTerm);
-			int pageSize = DefaultPageSize;
-			int totalPages = (int)Math.Ceiling((double)totalSongs / pageSize);
+			//int pageSize = DefaultPageSize;
+			//int totalPages = (int)Math.Ceiling((double)totalSongs / pageSize);
 
-			if (page < 1)
-			{
-				page = 1;
-			}
+			//if (page < 1)
+			//{
+			//	page = 1;
+			//}
 
-			if (totalPages > 0 && page > totalPages)
-			{
-				page = totalPages;
-			}
+			//if (totalPages > 0 && page > totalPages)
+			//{
+			//	page = totalPages;
+			//}
 
 			IEnumerable<SongListingServiceModel> songs =
 				await this.songService.GetAllAsync(page, searchTerm);
@@ -46,8 +46,8 @@
 				PageInfo = new PaginatedViewModel<SongListingServiceModel>()
 				{
 					Current = page,
-					PageSize = pageSize,
-					TotalPages = totalPages,
+					PageSize = DefaultPageSize,
+					TotalItems = totalSongs,
 					Items = songs
 				}
 			});

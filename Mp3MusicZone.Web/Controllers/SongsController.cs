@@ -25,17 +25,17 @@
 		{
 			int totalSongs = await this.songService.TotalAsync(searchTerm);
 			int pageSize = DefaultPageSize;
-			int totalPages = (int)Math.Ceiling((double)totalSongs / pageSize);
+			//int totalPages = (int)Math.Ceiling((double)totalSongs / pageSize);
 
-			if (page < 1)
-			{
-				page = 1;
-			}
+			//if (page < 1)
+			//{
+			//	page = 1;
+			//}
 
-			if (totalPages > 0 && page > totalPages)
-			{
-				page = totalPages;
-			}
+			//if (totalPages > 0 && page > totalPages)
+			//{
+			//	page = totalPages;
+			//}
 
 			IEnumerable<SongListingServiceModel> songs =
 				await this.songService.GetAllAsync(page, searchTerm);
@@ -47,7 +47,6 @@
 				{
 					Current = page,
 					PageSize = pageSize,
-					TotalPages = totalPages,
 					Items = songs
 				}
 			});

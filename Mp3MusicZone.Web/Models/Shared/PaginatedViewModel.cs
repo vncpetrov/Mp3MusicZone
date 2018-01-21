@@ -12,16 +12,6 @@
 
 		public int PageSize { get; set; }
 
-		public int TotalPages { get; set; }
-
-		public int Previous
-			=> this.Current == 1 
-			   ? 1 
-			   : this.Current - 1;
-
-		public int Next
-			=> this.Current == this.TotalPages 
-			   ? this.TotalPages 
-			   : this.Current + 1;
+		public int TotalItems { get; set; }
 	}
 }

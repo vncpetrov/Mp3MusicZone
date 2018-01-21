@@ -11,6 +11,7 @@
 	using Services.Admin.Models;
 	using System;
 	using System.Collections.Generic;
+	using System.Linq;
 	using System.Threading.Tasks;
 
 	using static Common.Constants.WebConstants;
@@ -34,18 +35,18 @@
 		public async Task<IActionResult> Index(int page = 1, string searchTerm = null)
 		{
 			int totalUsers = await this.userService.TotalAsync(searchTerm);
-			int pageSize = DefaultPageSize;
-			int totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
+			//int pageSize = DefaultPageSize;
+			//int totalPages = (int)Math.Ceiling((double)totalUsers / pageSize);
 
-			if (page < 1)
-			{
-				page = 1;
-			}
+			//if (page < 1)
+			//{
+			//	page = 1;
+			//}
 
-			if (totalPages > 0 && page > totalPages)
-			{
-				page = totalPages;
-			}
+			//if (totalPages > 0 && page > totalPages)
+			//{
+			//	page = totalPages;
+			//}
 
 			IEnumerable<AdminUserListingServiceModel> users =
 				await this.userService.GetAllAsync(page, searchTerm);
@@ -57,8 +58,8 @@
 				{
 					Items = users,
 					Current = page,
-					PageSize = pageSize,
-					TotalPages = totalPages
+					PageSize = DefaultPageSize,
+					TotalItems = totalUsers
 				}
 			});
 		}
